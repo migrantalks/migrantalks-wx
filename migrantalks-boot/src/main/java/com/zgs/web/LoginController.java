@@ -25,8 +25,8 @@ import java.util.Map;
 public class LoginController {
 
     private static final String WX_URL = "https://api.weixin.qq.com/sns/jscode2session";
-    private static final String WX_APPID = "";
-    private static final String WX_SECRET = "";
+    private static final String WX_APPID = " ";
+    private static final String WX_SECRET = " ";
 
     @Autowired
     IUserService userService;
