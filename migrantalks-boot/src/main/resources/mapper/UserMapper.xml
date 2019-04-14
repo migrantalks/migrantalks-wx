@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgs.dao.UserMapper">
+  <resultMap id="UserResultMap" type="com.zgs.entity.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="pass" jdbcType="VARCHAR" property="pass" />
+    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
+    <result column="user_no" jdbcType="BIGINT" property="userNo" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="client_id" jdbcType="VARCHAR" property="clientId" />
+    <result column="account_type" jdbcType="VARCHAR" property="accountType" />
+    <result column="user_sex" jdbcType="CHAR" property="userSex" />
+    <result column="theme" jdbcType="VARCHAR" property="theme" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="company_id" jdbcType="BIGINT" property="companyId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="BIGINT" property="createUser" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_user" jdbcType="BIGINT" property="modifyUser" />
+  </resultMap>
+
+  <select id="selectUserList" resultType="user" parameterType="user">
+    SELECT u.id,u.user_name userName,
+      u.login_name loginName,
+      u.dept_id deptId,
+      d.dept_name deptName,
+      u.user_no userNo,
+      u.email,u.mobile,
+      u.user_sex userSex,
+      u.create_time createTime,u.status,
+      group_concat(r.role_name) roleName
+    FROM jx_org_user u
+    LEFT JOIN jx_org_info d ON u.dept_id = d.id
+    LEFT JOIN jx_org_user_r_role ur ON u.id = ur.user_id
+    LEFT JOIN jx_org_role r ON r.id = ur.role_id
+    WHERE 1 = 1 AND u.status &lt;&gt; 2
+    <if test="userName != null and userName != ''">
+      AND u.user_name = #{userName}
+    </if>
+    <if test="deptId != null and deptId != ''">
+      AND d.dept_id = #{deptId}
+    </if>
+    <if test="userSex != null and userSex != ''">
+      AND u.user_sex = #{userSex}
+    </if>
+    <if test="status != null and status != ''">
+      AND u.status = #{status}
+    </if>
+    <if test="companyId != null and companyId != ''">
+      AND u.company_id = #{companyId}
+    </if>
+    GROUP BY
+      u.id,u.user_name,u.login_name,
+      u.dept_id,d.dept_name,
+      u.user_no,u.email,u.mobile,
+      u.user_sex,u.create_time,u.status
+    ORDER BY u.user_no is null,u.id
+  </select>
+
+  <select id="selectUserDetail" resultType="user" parameterType="user">
+    SELECT
+      u.id,u.pass,
+      u.user_name userName,
+      u.login_name loginName,
+      u.dept_id deptId,
+      d.dept_name deptName,
+      u.user_no userNo,u.email,
+      u.mobile,u.client_id clientId,
+      u.user_sex userSex,
+      u.theme,u.avatar,
+      u.company_id companyId,
+      group_concat(r.role_name) roleName
+    FROM jx_org_user u
+    LEFT JOIN jx_org_info d ON u.dept_id = d.id
+    LEFT JOIN jx_org_user_r_role ur ON u.id = ur.user_id
+    LEFT JOIN jx_org_role r ON r.id = ur.role_id
+    WHERE u.id = #{id}
+    GROUP BY
+      u.id,u.pass,
+      u.user_name,u.login_name,
+      u.dept_id,d.dept_name,
+      u.user_no,u.email,
+      u.mobile,u.client_id,
+      u.theme,u.avatar,u.company_id
+  </select>
+</mapper>

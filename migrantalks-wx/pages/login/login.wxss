@@ -1,0 +1,8 @@
+/* pages/login/login.wxss */
+.login-view label{float: left;}
+.login-view input{padding-left: .4rem;}
+
+.login-btn{width:16rem;}
+
+.marT6{margin-top:.6rem;}
+.marB6{margin-bottom:.6rem;}

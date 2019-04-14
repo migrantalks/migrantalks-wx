@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/login/login",
+    "pages/main/main"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "migrantalks",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "light"
+  }
+}

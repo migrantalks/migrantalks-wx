@@ -1,0 +1,22 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <view>
+    <form bindsubmit="toLogin">
+      <view class="login-view">
+        <label>账号：</label>
+        <input name="username" placeholder="请输入账号"/>
+      </view>
+      <view class="login-view">
+        <label>密码：</label>
+        <input name="password" placeholder="请输入密码"/>
+      </view>
+      
+      <view>
+        <button type="primary" class='login-btn marT6 marB6' formType="submit">普通登录</button>
+      </view>
+      <view>
+        <button type="warn" class='login-btn' open-type="getUserInfo" bindgetuserinfo="wxLogin">微信登录</button>
+      </view>
+    </form>
+  </view>
+</view>

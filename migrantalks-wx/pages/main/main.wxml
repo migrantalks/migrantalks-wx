@@ -1,0 +1,6 @@
+<view class="content">
+  <text>您好，{{username}}！</text>
+</view>
+<view>
+  <text>Token：{{token}}</text>
+</view>
